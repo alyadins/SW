@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 
@@ -52,7 +53,8 @@ public class RegistrationActivity extends Activity {
                 Toast.makeText(this, R.string.scan_error, Toast.LENGTH_LONG).show();
             } else {
                 setProgress(true);
-                sendInfo(result.getContents());
+                Log.d("RATEST", "qr = " + result.getContents());
+                sendInfo(result.getContents().substring(0, 15));
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);

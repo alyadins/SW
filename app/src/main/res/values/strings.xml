@@ -13,4 +13,7 @@
     <string name="something_goes_wrong">Что то пошло не так</string>
     <string name="okay">Хорошо</string>
     <string name="please_wait">Пожалуйста подождите</string>
+    <string name="price">Цена</string>
+    <string name="ready">Готово</string>
+    <string name="your_code">Ваш код</string>
 </resources>

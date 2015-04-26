@@ -24,7 +24,7 @@ public class PupilActivity extends MyFragmentActivity {
         super.onResume();
         PupilListFragment pupilListFragment = new PupilListFragment();
         FragmentEvent event = new FragmentEvent(pupilListFragment);
-        event.setAction(FragmentEvent.ADD);
+        event.setAction(FragmentEvent.REPLACE);
         EventBus.getDefault().post(event);
     }
 }

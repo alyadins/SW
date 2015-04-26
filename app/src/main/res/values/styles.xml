@@ -21,4 +21,8 @@
         <item name="android:layout_marginLeft">10dp</item>
     </style>
 
+    <style name="CardStyle" parent="CardView.Light">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
 </resources>
