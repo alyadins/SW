@@ -1,9 +1,9 @@
-package ru.oblako10.schoolwallet;
+package ru.thinone.schoolwallet;
 
 import android.app.Application;
 
 import retrofit.RestAdapter;
-import ru.oblako10.schoolwallet.network.NetworkService;
+import ru.thinone.schoolwallet.network.NetworkService;
 
 /**
  * Created by alexandrlyadinskii on 26.04.15.

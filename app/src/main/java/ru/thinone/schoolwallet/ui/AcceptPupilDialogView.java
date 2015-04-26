@@ -1,4 +1,4 @@
-package ru.oblako10.schoolwallet;
+package ru.thinone.schoolwallet.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,18 +9,18 @@ import android.widget.TextView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import ru.oblako10.schoolwallet.model.PupilInfo;
+import ru.thinone.schoolwallet.model.PupilInfo;
 
 /**
  * Created by alexandrlyadinskii on 26.04.15.
  * All rights reserved©
  */
 public class AcceptPupilDialogView extends FrameLayout {
-    @InjectView(R.id.name)
+    @InjectView(ru.thinone.schoolwallet.R.id.name)
     TextView mName;
-    @InjectView(R.id.group)
+    @InjectView(ru.thinone.schoolwallet.R.id.group)
     TextView mGroup;
-    @InjectView(R.id.school)
+    @InjectView(ru.thinone.schoolwallet.R.id.school)
     TextView mSchool;
 
     public AcceptPupilDialogView(Context context) {
@@ -39,7 +39,7 @@ public class AcceptPupilDialogView extends FrameLayout {
     }
 
     private void init() {
-        View v = LayoutInflater.from(getContext()).inflate(R.layout.accept_pupil_dialog, this);
+        View v = LayoutInflater.from(getContext()).inflate(ru.thinone.schoolwallet.R.layout.accept_pupil_dialog, this);
         ButterKnife.inject(this, v);
     }
 

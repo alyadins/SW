@@ -1,10 +1,10 @@
-package ru.oblako10.schoolwallet.activity;
+package ru.thinone.schoolwallet.activity;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
-import ru.oblako10.schoolwallet.util.SettingsHelper;
+import ru.thinone.schoolwallet.util.SettingsHelper;
 
 
 public class MainActivity extends ActionBarActivity {

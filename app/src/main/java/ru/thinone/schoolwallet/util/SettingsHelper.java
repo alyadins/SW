@@ -1,4 +1,4 @@
-package ru.oblako10.schoolwallet.util;
+package ru.thinone.schoolwallet.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;

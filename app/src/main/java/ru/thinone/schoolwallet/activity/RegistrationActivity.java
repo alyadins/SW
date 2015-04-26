@@ -1,4 +1,4 @@
-package ru.oblako10.schoolwallet.activity;
+package ru.thinone.schoolwallet.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -16,11 +16,11 @@ import com.google.zxing.integration.android.IntentResult;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import ru.oblako10.schoolwallet.AcceptPupilDialogView;
-import ru.oblako10.schoolwallet.R;
-import ru.oblako10.schoolwallet.WalletContext;
-import ru.oblako10.schoolwallet.model.PupilInfo;
-import ru.oblako10.schoolwallet.util.SettingsHelper;
+import ru.thinone.schoolwallet.ui.AcceptPupilDialogView;
+import ru.thinone.schoolwallet.R;
+import ru.thinone.schoolwallet.WalletContext;
+import ru.thinone.schoolwallet.model.PupilInfo;
+import ru.thinone.schoolwallet.util.SettingsHelper;
 
 /**
  * Created by alexandrlyadinskii on 26.04.15.

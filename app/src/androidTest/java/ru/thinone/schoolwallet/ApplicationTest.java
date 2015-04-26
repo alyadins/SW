@@ -1,4 +1,4 @@
-package ru.oblako10.schoolwallet;
+package ru.thinone.schoolwallet;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

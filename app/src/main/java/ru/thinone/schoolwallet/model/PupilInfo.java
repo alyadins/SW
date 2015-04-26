@@ -1,4 +1,4 @@
-package ru.oblako10.schoolwallet.model;
+package ru.thinone.schoolwallet.model;
 
 /**
  * Created by alexandrlyadinskii on 26.04.15.
