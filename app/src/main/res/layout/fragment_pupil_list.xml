@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    android:id="@+id/swipe_refresh_layout"
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+              android:layout_height="match_parent"
+    android:background="@android:color/white">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <TextView
+            android:id="@+id/summ_text"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="55 руб"
+            android:gravity="center"
+            android:background="#FFFF00"
+            android:padding="5dp"/>
+    </RelativeLayout>
+</FrameLayout>

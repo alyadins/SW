@@ -9,106 +9,80 @@ import java.util.List;
  * All rights reserved©
  */
 public class Service {
+    private int id;
+    private String name;
+    private List<Article> articles;
 
-    @SerializedName("tradegroup-name")
-    String mGroupName;
-    @SerializedName("tradegroup-id")
-    int mGroupId;
-    @SerializedName("articles")
-    ServiceItemsList mServiceItemsList;
-
-    public String getGroupName() {
-        return mGroupName;
+    public int getId() {
+        return id;
     }
 
-    public void setGroupName(String groupName) {
-        mGroupName = groupName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getGroupId() {
-        return mGroupId;
+    public String getName() {
+        return name;
     }
 
-    public void setGroupId(int groupId) {
-        mGroupId = groupId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-
-    public ServiceItemsList getServiceItemsList() {
-        return mServiceItemsList;
+    public List<Article> getArticles() {
+        return articles;
     }
 
-    public void setServiceItemsList(ServiceItemsList serviceItemsList) {
-        mServiceItemsList = serviceItemsList;
+    public void setArticles(List<Article> articles) {
+        this.articles = articles;
     }
 
-    public class ServiceItemsList {
-        @SerializedName("tradegroupID7")
-        String mServicesId;
-
-        @SerializedName("items")
-        List<ServiceItem> mItems;
-
-        public String getServicesId() {
-            return mServicesId;
-        }
-
-        public void setServicesId(String servicesId) {
-            mServicesId = servicesId;
-        }
-
-        public List<ServiceItem> getItems() {
-            return mItems;
-        }
-
-        public void setItems(List<ServiceItem> items) {
-            mItems = items;
-        }
-    }
-
-    public class ServiceItem {
-        @SerializedName("id")
-        int mId;
-
-        @SerializedName("name")
-        String mName;
-
-        @SerializedName("description")
-        String mDescription;
-
-        @SerializedName("price")
-        int mPrice;
+    public class Article {
+        private int id;
+        private String name;
+        private String description;
+        private int price;
+        @SerializedName("tradegroup_id")
+        private int tradegroupId;
 
         public int getId() {
-            return mId;
+            return id;
         }
 
         public void setId(int id) {
-            mId = id;
+            this.id = id;
         }
 
         public String getName() {
-            return mName;
+            return name;
         }
 
         public void setName(String name) {
-            mName = name;
+            this.name = name;
         }
 
         public String getDescription() {
-            return mDescription;
+            return description;
         }
 
         public void setDescription(String description) {
-            mDescription = description;
+            this.description = description;
         }
 
         public int getPrice() {
-            return mPrice;
+            return price;
         }
 
         public void setPrice(int price) {
-            mPrice = price;
+            this.price = price;
+        }
+
+        public int getTradegroupId() {
+            return tradegroupId;
+        }
+
+        public void setTradegroupId(int tradegroupId) {
+            this.tradegroupId = tradegroupId;
         }
     }
 }

@@ -13,7 +13,7 @@ public class FragmentEvent {
 
 
     private BaseFragment mFragment;
-    private boolean mNeedBackstack;
+    private boolean mNeedBackstack = false;
     private int mAction = REPLACE;
 
     public void setFragment(BaseFragment fragment) {

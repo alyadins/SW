@@ -9,7 +9,6 @@ import java.util.Objects;
 public class PupilListData {
     public static final int HEADER = 0;
     public static final int ITEM = 1;
-    public static final int BUTTON = 3;
 
     private int mType;
 
@@ -43,14 +42,6 @@ public class PupilListData {
         PupilListData data = new PupilListData();
         data.setData(itemData);
         data.setType(ITEM);
-
-        return data;
-    }
-
-    public static PupilListData addButton() {
-
-        PupilListData data = new PupilListData();
-        data.setType(BUTTON);
 
         return data;
     }

@@ -25,6 +25,7 @@ public class PupilServicesListAdapter extends RecyclerView.Adapter<RecyclerView.
 
     public interface PupilServicesListAdapterListener {
         void onReady(PupilServicesListAdapter listAdapter);
+        void onChange(PupilServicesListAdapter listAdapter);
     }
 
     private Context mContext;
@@ -52,9 +53,6 @@ public class PupilServicesListAdapter extends RecyclerView.Adapter<RecyclerView.
             case PupilListData.ITEM:
                 v = LayoutInflater.from(mContext).inflate(R.layout.pupil_services_list_item, parent, false);
                 return new ItemViewHolder(v);
-            case PupilListData.BUTTON:
-                v = LayoutInflater.from(mContext).inflate(R.layout.pupil_services_list_button, parent, false);
-                return new ButtonViewHolder(v);
         }
 
         return null;
@@ -124,24 +122,8 @@ public class PupilServicesListAdapter extends RecyclerView.Adapter<RecyclerView.
         public void onClick(View v) {
             PupilListData.ItemData itemData = (PupilListData.ItemData) mListData.get(getPosition()).getData();
             itemData.setCheck(!itemData.isCheck());
+            if (mPupilServicesListAdapterListener != null) mPupilServicesListAdapterListener.onChange(PupilServicesListAdapter.this);
             notifyItemChanged(getPosition());
-        }
-    }
-
-    public class ButtonViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @InjectView(R.id.ready_button)
-        Button mReadyButton;
-
-        public ButtonViewHolder(View itemView) {
-            super(itemView);
-            ButterKnife.inject(this, itemView);
-//            R.layout.pupil_services_list_button
-            mReadyButton.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View v) {
-            mPupilServicesListAdapterListener.onReady(PupilServicesListAdapter.this);
         }
     }
 }

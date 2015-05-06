@@ -5,9 +5,12 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,12 +39,19 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
     RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
 
-    @InjectView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    @InjectView(R.id.summ_text)
+    TextView mSummText;
 
     private String mUserId;
 
     private List<PupilListData> mData;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+        setRetainInstance(true);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,35 +62,50 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-        mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mSummText.setText("0 руб.");
+        mUserId = SettingsHelper.getUserId(getActivity());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.ready) {
+            generateQrCode();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        mUserId = SettingsHelper.getUserId(getActivity());
-        loadList(false);
+        loadList();
+        updateSum();
     }
 
-    private void loadList(final boolean fromRefresher) {
-        if (!fromRefresher) setProgress(true);
-        WalletContext.getNetworkService().getList(mUserId, new Callback<List<Service>>() {
-            @Override
-            public void success(List<Service> services, Response response) {
-                if (!fromRefresher) setProgress(false);
-                if (mSwipeRefreshLayout != null) {
-                    mSwipeRefreshLayout.setRefreshing(false);
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.pupil_list_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    private void loadList() {
+        if (mData == null) {
+            WalletContext.getNetworkService().getList(mUserId, new Callback<List<Service>>() {
+                @Override
+                public void success(List<Service> services, Response response) {
+                    initListData(services);
                 }
 
-                initListData(services);
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-                showError();
-            }
-        });
+                @Override
+                public void failure(RetrofitError error) {
+                    showError();
+                }
+            });
+        } else {
+            initList();
+        }
     }
 
     private void initListData(List<Service> services) {
@@ -90,17 +115,15 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
 
         mData.clear();
         for (Service service : services) {
-            mData.add(PupilListData.addHeaderData(service.getGroupName()));
-            for (Service.ServiceItem serviceItem : service.getServiceItemsList().getItems()) {
-                PupilListData data = PupilListData.addItemData(serviceItem.getId(),
-                        serviceItem.getName(),
-                        serviceItem.getDescription(),
-                        serviceItem.getPrice());
+            mData.add(PupilListData.addHeaderData(service.getName()));
+            for (Service.Article article : service.getArticles()) {
+                PupilListData data = PupilListData.addItemData(article.getId(),
+                        article.getName(),
+                        article.getDescription(),
+                        article.getPrice());
                 mData.add(data);
             }
         }
-
-        mData.add(PupilListData.addButton());
 
         initList();
     }
@@ -108,11 +131,12 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
     private void initList() {
         if (mAdapter == null) {
             mAdapter = new PupilServicesListAdapter(getActivity(), mData, this);
-            if (mRecyclerView != null) {
-                mRecyclerView.setAdapter(mAdapter);
-            }
         } else {
             mAdapter.notifyDataSetChanged();
+        }
+
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(mAdapter);
         }
     }
 
@@ -129,13 +153,34 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
 
     @Override
     public void onRefresh() {
-        loadList(true);
+        loadList();
     }
 
     @Override
     public void onReady(PupilServicesListAdapter listAdapter) {
         generateQrCode();
 
+    }
+
+    @Override
+    public void onChange(PupilServicesListAdapter listAdapter) {
+        updateSum();
+    }
+
+    private void updateSum() {
+        if (mData != null) {
+            int sum = 0;
+            for (PupilListData data : mData) {
+                if (data.getType() == PupilListData.ITEM) {
+                    PupilListData.ItemData itemData = ((PupilListData.ItemData) data.getData());
+                    if (itemData.isCheck()) {
+                        sum += itemData.getPrice();
+                    }
+                }
+            }
+
+            mSummText.setText(sum + " руб.");
+        }
     }
 
     private void generateQrCode() {
@@ -153,7 +198,7 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
         fragment.setIds(checkingItemIds);
 
         FragmentEvent event = new FragmentEvent(fragment);
-        event.setAction(FragmentEvent.ADD);
+        event.setAction(FragmentEvent.REPLACE);
         event.setNeedBackstack(true);
 
         EventBus.getDefault().post(event);

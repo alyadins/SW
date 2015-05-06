@@ -5,15 +5,16 @@
               android:layout_height="match_parent"
               android:padding="10dp"
               android:background="@android:color/white"
-    android:gravity="center">
+              android:gravity="center">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/black"
         android:text="@string/your_code"
         android:textSize="24dp"/>
-    <ru.thinone.schoolwallet.ui.ResizableImageView
+    <ImageView
         android:id="@+id/qr_image"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"/>
 </LinearLayout>

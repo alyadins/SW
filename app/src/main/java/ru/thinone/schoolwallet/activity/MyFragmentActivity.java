@@ -12,6 +12,7 @@ import ru.thinone.schoolwallet.R;
 import ru.thinone.schoolwallet.events.DialogFragmentEvent;
 import ru.thinone.schoolwallet.events.FragmentEvent;
 import ru.thinone.schoolwallet.fragment.BaseDialogFragment;
+import ru.thinone.schoolwallet.fragment.BaseFragment;
 
 /**
  * Created by alexandrlyadinskii on 26.04.15.
@@ -38,8 +39,14 @@ public class MyFragmentActivity extends ActionBarActivity {
 
     public void onEvent(FragmentEvent event) {
 
-        Log.d("MFATEST", "on fragment event");
+        Log.d("MFATEST", "on fragment event " + event.getFragment().getFragmentTag() + " action =  " + event.getAction());
+        BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(event.getFragment().getFragmentTag());
+
+
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (fragment != null) {
+            transaction.remove(fragment);
+        }
         switch (event.getAction()) {
             case FragmentEvent.ADD:
                 transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,android.R.anim.fade_in, android.R.anim.fade_out);
