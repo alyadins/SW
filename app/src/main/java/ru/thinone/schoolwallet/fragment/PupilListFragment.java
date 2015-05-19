@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +25,9 @@ import retrofit.client.Response;
 import ru.thinone.schoolwallet.R;
 import ru.thinone.schoolwallet.WalletContext;
 import ru.thinone.schoolwallet.events.FragmentEvent;
+import ru.thinone.schoolwallet.model.Article;
+import ru.thinone.schoolwallet.model.DataProvider.BaseDataProvider;
+import ru.thinone.schoolwallet.model.DataProvider.ServiceDataProvider;
 import ru.thinone.schoolwallet.model.Service;
 import ru.thinone.schoolwallet.ui.pupils.PupilListData;
 import ru.thinone.schoolwallet.ui.pupils.PupilServicesListAdapter;
@@ -91,19 +95,24 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
 
 
     private void loadList() {
+
+        setProgress(true);
         if (mData == null) {
-            WalletContext.getNetworkService().getList(mUserId, new Callback<List<Service>>() {
+            ServiceDataProvider.getServiceList(getActivity(), mUserId, new BaseDataProvider.OnDataReady<List<Service>>() {
                 @Override
-                public void success(List<Service> services, Response response) {
-                    initListData(services);
+                public void onReady(List<Service> data) {
+                    setProgress(false);
+                    initListData(data);
                 }
 
                 @Override
-                public void failure(RetrofitError error) {
+                public void onError(int reason) {
+                    setProgress(false);
                     showError();
                 }
             });
         } else {
+            setProgress(false);
             initList();
         }
     }
@@ -116,7 +125,7 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
         mData.clear();
         for (Service service : services) {
             mData.add(PupilListData.addHeaderData(service.getName()));
-            for (Service.Article article : service.getArticles()) {
+            for (Article article : service.getArticles()) {
                 PupilListData data = PupilListData.addItemData(article.getId(),
                         article.getName(),
                         article.getDescription(),
@@ -184,6 +193,8 @@ public class PupilListFragment extends BaseFragment implements SwipeRefreshLayou
     }
 
     private void generateQrCode() {
+        if (mData == null)
+            return;
         List<Integer> checkingItemIds = new ArrayList<>();
         for (PupilListData data : mData) {
             if (data.getType() == PupilListData.ITEM) {

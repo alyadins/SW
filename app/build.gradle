@@ -22,6 +22,10 @@ android {
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
         maven {url "http://dl.bintray.com/journeyapps/maven"}
     }
+
+    packagingOptions {
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
 }
 
 dependencies {
@@ -37,4 +41,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'de.greenrobot:eventbus:2.4.0'
     compile 'com.android.support:cardview-v7:21.0.3'
+    compile 'io.realm:realm-android:0.80.1'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.3.0'
+    compile 'com.squareup.okhttp:okhttp:2.3.0'
 }

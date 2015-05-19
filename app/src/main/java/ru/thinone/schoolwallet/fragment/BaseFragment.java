@@ -27,6 +27,9 @@ public abstract class BaseFragment extends Fragment{
     }
 
     public void showError(String errorMessage) {
+        if (!isAdded()) {
+            return;
+        }
         ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
         errorDialogFragment.setMessage(errorMessage);
         errorDialogFragment.setMessage(getString(R.string.error));

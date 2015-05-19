@@ -1,10 +1,12 @@
 package ru.thinone.schoolwallet.model;
 
+import io.realm.RealmObject;
+
 /**
  * Created by alexandrlyadinskii on 26.04.15.
  * All rights reserved©
  */
-public class PupilInfo {
+public class PupilInfo{
 
     private int id;
     private String school;
