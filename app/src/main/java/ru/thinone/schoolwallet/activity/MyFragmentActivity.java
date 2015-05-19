@@ -21,7 +21,6 @@ import ru.thinone.schoolwallet.fragment.BaseFragment;
 public class MyFragmentActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("MFATEST", "on create");
         super.onCreate(savedInstanceState);
     }
 
@@ -39,7 +38,6 @@ public class MyFragmentActivity extends ActionBarActivity {
 
     public void onEvent(FragmentEvent event) {
 
-        Log.d("MFATEST", "on fragment event " + event.getFragment().getFragmentTag() + " action =  " + event.getAction());
         BaseFragment fragment = (BaseFragment) getSupportFragmentManager().findFragmentByTag(event.getFragment().getFragmentTag());
 
 
@@ -67,7 +65,6 @@ public class MyFragmentActivity extends ActionBarActivity {
     }
 
     public void onEvent(DialogFragmentEvent event) {
-        Log.d("MFATEST", "on dialog event");
         FragmentManager manager = getSupportFragmentManager();
         BaseDialogFragment fragment = event.getDialogFragment();
         if (event.isRemovePrevious()) {

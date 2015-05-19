@@ -53,7 +53,6 @@ public class RegistrationActivity extends Activity {
                 Toast.makeText(this, R.string.scan_error, Toast.LENGTH_LONG).show();
             } else {
                 setProgress(true);
-                Log.d("RATEST", "qr = " + result.getContents());
                 sendInfo(result.getContents().substring(0, 15));
             }
         } else {

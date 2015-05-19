@@ -18,7 +18,7 @@ public class TimeSettings {
 
     public static final String SERVICES = "services_ttl";
 
-    public static final long SERVICES_TTL = 5 * MINUTE;
+    public static final long SERVICES_TTL = 20 * MINUTE;
 
     public static void  updateTime(Context context, String type) {
         SharedPreferences.Editor editor = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).edit();
@@ -39,17 +39,10 @@ public class TimeSettings {
     }
 
     public static boolean isActual(Context context, String type, long ttl) {
-        if (System.currentTimeMillis() - getTime(context, type) < ttl) {
-            return true;
-        }
-        return false;
+        return System.currentTimeMillis() - getTime(context, type) < ttl;
     }
 
     public static boolean isActual(long updateTime, long ttl) {
-        if (System.currentTimeMillis() - updateTime < ttl) {
-            return true;
-        }
-
-        return false;
+        return System.currentTimeMillis() - updateTime < ttl;
     }
 }

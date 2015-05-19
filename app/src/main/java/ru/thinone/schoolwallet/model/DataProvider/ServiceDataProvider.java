@@ -48,8 +48,6 @@ public class ServiceDataProvider extends BaseDataProvider{
                     realm.copyToRealm(services);
                     realm.commitTransaction();
 
-                    Log.d("TEST", "on suuccess " + realm.where(Service.class).findAll().size());
-
                     serviceList.addAll(services);
                     onDataReady.onReady(serviceList);
                 } catch (RealmException e) {
