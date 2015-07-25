@@ -13,7 +13,7 @@ import ru.thinone.schoolwallet.model.Service;
  * All rights reserved©
  */
 public interface NetworkService  {
-    String ENDPOINT_URL = "http://school-lab.oblako10.ru/app";
+    String ENDPOINT_URL = "https://online.schoolpay.ru/app";
 
     @GET("/!onepages.html?page=9004")
     void register(@Query("code") String code, Callback<PupilInfo> callback);
